@@ -1,0 +1,7 @@
+.venv
+.idea
+database
+secret_data
+identifier.sqlite
+session.session
+__pycache__
