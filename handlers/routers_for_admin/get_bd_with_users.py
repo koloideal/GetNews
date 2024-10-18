@@ -11,61 +11,49 @@ from handlers.routers_for_all.rout_start import creator_id
 
 
 async def get_users_bd_rout(message: types.Message) -> None:
-
     user_id: int = message.from_user.id
 
     admins_id: list = await get_admins()
 
     if user_id != creator_id and user_id not in admins_id:
-
-        await message.answer('Unknown command, enter /help')
+        await message.answer("Unknown command, enter /help")
 
     else:
-
         try:
-
-            connection: Connection = sqlite3.connect('database/bot_users.db')
+            connection: Connection = sqlite3.connect("database/bot_users.db")
             cursor: Cursor = connection.cursor()
 
-            cursor.execute('''SELECT * FROM users''')
+            cursor.execute("""SELECT * FROM users""")
 
             all_users: list = cursor.fetchall()
 
         except OperationalError:
-
-            await message.answer('Database is empty, enter /start and try again')
-
-            cursor.close()
-            connection.close()
-
+            await message.answer("Database is empty, enter /start and try again")
             return
 
         else:
-
             cursor.close()
             connection.close()
 
         to_dump_data: dict = {}
 
         for user in all_users:
-
             to_dump_data[user[2]]: dict = {
-
-                'user_id': user[0],
-                'user_first_name': user[1],
-                'user_username': user[2]
-
+                "user_id": user[0],
+                "user_first_name": user[1],
+                "user_username": user[2],
             }
 
-        full_file_name: str = f'secret_data/bot_users.json'
+        full_file_name: str = "secret_data/bot_users.json"
 
-        with open(full_file_name, 'w', encoding='utf8') as file:
-
+        with open(full_file_name, "w", encoding="utf8") as file:
             json.dump(to_dump_data, file, indent=4, ensure_ascii=False)
 
         document: FSInputFile = FSInputFile(full_file_name)
 
-        await message.answer_document(document=document, caption=f'before {datetime.now().strftime('%d-%m-%Y')}')
+        await message.answer_document(
+            document=document, caption=f"before {datetime.now().strftime('%d-%m-%Y')}"
+        )
 
         os.remove(full_file_name)
 

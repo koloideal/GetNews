@@ -4,13 +4,14 @@ from aiogram import types
 
 
 async def del_send_user(message: types.Message) -> None:
-
     chat_id: int = message.chat.id
 
-    connection: Connection = sqlite3.connect('database/send_users.db')
+    connection: Connection = sqlite3.connect("database/send_users.db")
     cursor: Cursor = connection.cursor()
 
-    cursor.execute('''UPDATE send_users SET is_send = ? WHERE id = ?''', (False, chat_id))
+    cursor.execute(
+        """UPDATE send_users SET is_send = ? WHERE id = ?""", (False, chat_id)
+    )
 
     connection.commit()
 

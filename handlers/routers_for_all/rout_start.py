@@ -14,13 +14,12 @@ class AdminState(StatesGroup):
 
 
 config = ConfigParser()
-config.read('secret_data/config.ini')
+config.read("secret_data/config.ini")
 
-creator_id: int = int(config['Telegram']['creator_id'])
+creator_id: int = int(config["Telegram"]["creator_id"])
 
 
 async def start_rout(message: types.Message) -> None:
-
     user_id: int = message.from_user.id
 
     admins_id: list = await get_admins()
@@ -36,58 +35,64 @@ async def start_rout(message: types.Message) -> None:
     creator_case: bool = ((case1 and case5) or (case2 and case5)) and not case4
     admin_case: bool = case3 and case5 and not (case4 or case1 or case2)
     user_case: bool = case5 and not (case1 or case2 or case3 or case4)
-    banned_user_case: bool = (case4 and not (case1 or case2 or case3 or case5)) or (case4 and case3)
+    banned_user_case: bool = (case4 and not (case1 or case2 or case3 or case5)) or (
+        case4 and case3
+    )
 
     if creator_case:
-
-        await message.answer(f"Hello, <b>Creator</b>\n\n"
-                             f"What do you want to do today? 💭"
-                             f"\n\nFor reference, click <b><i>/help</i></b> 👈\n\n"
-                             f"To configure the sent news, click <b><i>/config</i></b>👈\n\n"
-                             f"---------- Creator's Commands👇----------\n\n"
-                             f"Add admin - <b><i>/add_admin</i></b> 👈\n\n"
-                             f"Delete admin - <b><i>/del_admin</i></b> 👈\n\n"
-                             f"Ban the user - <b><i>/ban_user</i></b> 👈\n\n"
-                             f"Unban the user - <b><i>/unban_user</i></b> 👈\n\n"
-                             f"Get logs - <b><i>/get_logs</i></b> 👈\n\n"
-                             f"json with users - <b><i>/get_users_bd</i></b> 👈\n\n"
-                             f"json with admins - <b><i>/get_admins_bd</i></b> 👈\n\n"
-                             f"json with ban users - <b><i>/get_ban_users_bd</i></b>\n\n"
-                             f"<strike>You know the rest</strike>"
-                             f"\n\n\n<b><i>made by you 🫵</i></b>")
+        await message.answer(
+            "Hello, <b>Creator</b>\n\n"
+            "What do you want to do today? 💭"
+            "\n\nFor reference, click <b><i>/help</i></b> 👈\n\n"
+            "To configure the sent news, click <b><i>/config</i></b>👈\n\n"
+            "---------- Creator's Commands👇----------\n\n"
+            "Add admin - <b><i>/add_admin</i></b> 👈\n\n"
+            "Delete admin - <b><i>/del_admin</i></b> 👈\n\n"
+            "Ban the user - <b><i>/ban_user</i></b> 👈\n\n"
+            "Unban the user - <b><i>/unban_user</i></b> 👈\n\n"
+            "Get logs - <b><i>/get_logs</i></b> 👈\n\n"
+            "json with users - <b><i>/get_users_bd</i></b> 👈\n\n"
+            "json with admins - <b><i>/get_admins_bd</i></b> 👈\n\n"
+            "json with ban users - <b><i>/get_ban_users_bd</i></b>\n\n"
+            "<strike>You know the rest</strike>"
+            "\n\n\n<b><i>made by you 🫵</i></b>"
+        )
 
     elif admin_case:
-
-        await message.answer(f"Hello, <b>admin</b>\n\n"
-                             f"What do you want to do today? 💭"
-                             f"\n\nfor reference, click <b><i>/help</i></b> 👈\n\n"
-                             f"To configure the sent news, click <b><i>/config</i></b>👈\n\n"
-                             f"---------- Admin Commands👇----------\n\n"
-                             f"Ban the user - <b><i>/ban_user</i></b> 👈\n\n"
-                             f"Unban the user - <b><i>/unban_user</i></b> 👈\n\n"
-                             f"Get logs - <b><i>/get_logs</i></b> 👈\n\n"
-                             f"json with users - <b><i>/get_users_bd</i></b> 👈\n\n"
-                             f"json with admins - <b><i>/get_admins_bd</i></b> 👈\n\n"
-                             f"json with ban users - <b><i>/get_ban_users_bd</i></b>"
-                             f"\n\n\n<b><i>made by <a href='https://t.me/kolo_id '>kolo</a></i></b>",
-                             disable_web_page_preview=True)
+        await message.answer(
+            "Hello, <b>admin</b>\n\n"
+            "What do you want to do today? 💭"
+            "\n\nfor reference, click <b><i>/help</i></b> 👈\n\n"
+            "To configure the sent news, click <b><i>/config</i></b>👈\n\n"
+            "---------- Admin Commands👇----------\n\n"
+            "Ban the user - <b><i>/ban_user</i></b> 👈\n\n"
+            "Unban the user - <b><i>/unban_user</i></b> 👈\n\n"
+            "Get logs - <b><i>/get_logs</i></b> 👈\n\n"
+            "json with users - <b><i>/get_users_bd</i></b> 👈\n\n"
+            "json with admins - <b><i>/get_admins_bd</i></b> 👈\n\n"
+            "json with ban users - <b><i>/get_ban_users_bd</i></b>"
+            "\n\n\n<b><i>made by <a href='https://t.me/kolo_id '>kolo</a></i></b>",
+            disable_web_page_preview=True,
+        )
 
     elif user_case:
-
-        await message.answer(f"Hello, I am a <b>GetNews</b>🤖\n\n"
-                             f"Bot for receiving news from the <code>ixbt®️</code> portal 💭"
-                             f"\n\nFor reference, click <b><i>/help</i></b> 👈\n\n"
-                             f"To configure the sent news, click <b><i>/config</i></b>👈"
-                             f"\n\n\n<b><i>made by <a href='https://t.me/kolo_id'>kolo</a></i></b>",
-                             disable_web_page_preview=True)
+        await message.answer(
+            "Hello, I am a <b>GetNews</b>🤖\n\n"
+            "Bot for receiving news from the <code>ixbt®️</code> portal 💭"
+            "\n\nFor reference, click <b><i>/help</i></b> 👈\n\n"
+            "To configure the sent news, click <b><i>/config</i></b>👈"
+            "\n\n\n<b><i>made by <a href='https://t.me/kolo_id'>kolo</a></i></b>",
+            disable_web_page_preview=True,
+        )
 
     elif banned_user_case:
-
-        await message.answer(f"Hello, I am a <b>GetNews</b>🤖\n\n"
-                             f"Bot for receiving news from the <code>ixbt®️</code> portal 💭"
-                             f"\n\n<u><b>You were blocked</b></u>"
-                             f"\n\n\nAbout the unban - <a href='https://t.me/kolo_id'>kolo</a>",
-                             disable_web_page_preview=True)
+        await message.answer(
+            "Hello, I am a <b>GetNews</b>🤖\n\n"
+            "Bot for receiving news from the <code>ixbt®️</code> portal 💭"
+            "\n\n<u><b>You were blocked</b></u>"
+            "\n\n\nAbout the unban - <a href='https://t.me/kolo_id'>kolo</a>",
+            disable_web_page_preview=True,
+        )
 
     await user_to_database(message)
 

@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "getnews"
+version = "0.1.0"
+description = "get news from news portal"
+authors = ["koloideal <sabatt148@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+aiogram = "^3.13.1"
+Telethon = "^1.37.0"
+requests = "^2.32.3"
+bs4 = "^0.0.2"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
